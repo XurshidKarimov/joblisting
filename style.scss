@@ -1,0 +1,181 @@
+@font-face {
+    font-family: 'Spartan Medium';
+    src: url(./fonts/Spartan-Medium.woff2);
+}
+
+@font-face {
+    font-family: 'Spartan Bold';
+    src: url(./fonts/Spartan-Bold.woff2);
+}
+
+@import "nullstyle.scss";
+
+
+@mixin spFont($ftype) {
+    @if $ftype ==sb {
+        font-family: 'Spartan Bold', sans-serif;
+    }
+
+    @else if $ftype ==sm {
+        font-family: 'Spartan Medium', sans-serif;
+    }
+}
+
+$company__name__color: #5CA5A5;
+$newState__bg-color: #5CA5A5;
+$newState__letter-color: #FFFFFF;
+$featuredState__bg-color: #2B3939;
+$featuredState__letter-color: #FFFFFF;
+$element__bg-color: #FFFFFF;
+$jobName__color: #2B3939;
+$jobName__hover-color: #5CA5A5;
+$element__hover-color: #5CA5A5;
+$jobinfo-color: #7C8F8F;
+$requirement-color: #5CA5A5;
+$requirement-BGcolor: #EFF6F6;
+$requirement-hover--color: #FFFFFF;
+$requirement-hover--BGcolor: #5CA5A5;
+
+body {
+    background-color: #EFFAFA;
+}
+
+header {
+    height: 155px;
+    width: 100%;
+    margin-bottom: 75px;
+    background: url(./assets/img/Combined\ Shape.png) center / cover no-repeat;
+}
+
+.container {
+    max-width: 1130px;
+    padding: 0 15px;
+    margin: auto;
+}
+
+
+// !!COMPONENTS--START
+.company-name {
+    @include font(14, 700, 15.65, none, $company__name__color);
+    @include spFont(sb);
+}
+
+.new--state {
+    display: inline-block;
+    padding: 6px 8px;
+    border-radius: 12px;
+    background: $newState__bg-color;
+    @include font(11, 700, 14, uppercase, $newState__letter-color);
+    @include spFont(sb);
+}
+
+.featured--state {
+    display: inline-block;
+    padding: 6px 8px;
+    border-radius: 12px;
+    background: $featuredState__bg-color;
+    @include font(11, 700, 14, uppercase, $featuredState__letter-color);
+    @include spFont(sb);
+}
+
+.job--name {
+    @include font(18, 700, 24, capitalize, $jobName__color);
+    @include spFont(sb);
+    transition: linear .2s;
+
+    &:hover {
+        color: $jobName__hover-color;
+    }
+}
+
+.requirement {
+    padding: 4px 8px;
+    @include font(13, 700, 24, none, $requirement-color);
+    @include spFont(sb);
+    border-radius: 4px;
+    background: $requirement-BGcolor;
+    transition: linear .2s;
+
+    &:hover {
+        color: $requirement-hover--color;
+        background: $requirement-hover--BGcolor;
+    }
+}
+
+//!! COMPONENTS--END
+
+
+//!! MAIN_STYLE-START
+
+.main-content {
+    @include flex($fDirection: column, $rGap: 24);
+
+    &__element {
+        position: relative;
+        padding: 32px 40px;
+        background: $element__bg-color;
+        border-radius: 5px 0 0 5px;
+        box-shadow: 0px 15px 20px -5px rgba(13, 113, 130, 0.15);
+        transition: linear .2s;
+        overflow: hidden;
+        cursor: pointer;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            width: 5px;
+            height: 100%;
+            background-color: $element__hover-color;
+        }
+
+        &:hover:before {
+            display: block;
+        }
+
+        &-content {
+            @include flex(center, space-between);
+
+            &__start {
+                @include flex(center, $cGap: 24);
+
+                &-content {
+                    @include flex($fDirection: column, $rGap: 8);
+
+                    &__top {
+                        @include flex(center, $cGap: 16);
+                    }
+
+                    &__job-info {
+                        @include flex($cGap: 32);
+
+                        & li {
+                            position: relative;
+                            @include font(15, 500, 24, none, $jobinfo-color);
+                            @include spFont(sm);
+                        }
+
+                        & li:not(:first-child)::before {
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            left: -15px;
+                            width: 4px;
+                            height: 4px;
+                            transform: translateY(-50%);
+                            background: url(./assets/icons/Oval.svg) no-repeat;
+                        }
+                    }
+                }
+            }
+
+            &__requirements {
+                @include flex($cGap: 16);
+            }
+        }
+    }
+}
+
+//!! MAIN_STYLE-END
